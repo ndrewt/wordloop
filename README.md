@@ -21,7 +21,7 @@ docker run --name db_wordloop_container -p 3006:3006 -d db_wordloop_image
 ```
 ---
 Also you can log in to database in terminal and do any you want with database.
-For it you need bash in your container:
+For it you need bash:
 ```
 docker exec -it db_wordloop_container bash
 ```
