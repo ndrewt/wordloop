@@ -4,16 +4,11 @@ SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
--- -----------------------------------------------------
--- Schema words_schema
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `words_schema` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
-USE `words_schema` ;
 
 -- -----------------------------------------------------
--- Table `words_schema`.`languages`
+-- Table `wordloop_data`.`languages`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `words_schema`.`languages` (
+CREATE TABLE IF NOT EXISTS `wordloop_data`.`languages` (
   `lang_id` INT NOT NULL AUTO_INCREMENT,
   `lang_name` VARCHAR(45) NOT NULL,
   PRIMARY KEY (`lang_id`))
@@ -22,9 +17,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `words_schema`.`users`
+-- Table `wordloop_data`.`users`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `words_schema`.`users` (
+CREATE TABLE IF NOT EXISTS `wordloop_data`.`users` (
   `user_id` INT NOT NULL AUTO_INCREMENT,
   `user_name` VARCHAR(45) NOT NULL,
   `user_login` VARCHAR(45) NOT NULL,
@@ -35,9 +30,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `words_schema`.`words`
+-- Table `wordloop_data`.`words`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `words_schema`.`words` (
+CREATE TABLE IF NOT EXISTS `wordloop_data`.`words` (
   `word_id` INT NOT NULL AUTO_INCREMENT,
   `word_lang1` VARCHAR(45) NOT NULL,
   `word_lang2` VARCHAR(45) NOT NULL,
@@ -50,12 +45,12 @@ CREATE TABLE IF NOT EXISTS `words_schema`.`words` (
   INDEX `lang2_id` (`lang2_id` ASC) VISIBLE,
   CONSTRAINT `words_ibfk_1`
     FOREIGN KEY (`lang1_id`)
-    REFERENCES `words_schema`.`languages` (`lang_id`)
+    REFERENCES `wordloop_data`.`languages` (`lang_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `words_ibfk_2`
     FOREIGN KEY (`lang2_id`)
-    REFERENCES `words_schema`.`languages` (`lang_id`)
+    REFERENCES `wordloop_data`.`languages` (`lang_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -63,9 +58,9 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `words_schema`.`words_lists`
+-- Table `wordloop_data`.`words_lists`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `words_schema`.`words_lists` (
+CREATE TABLE IF NOT EXISTS `wordloop_data`.`words_lists` (
   `list_id` INT NOT NULL AUTO_INCREMENT,
   `list_name` VARCHAR(45) NOT NULL,
   `lang1_id` INT NOT NULL,
@@ -76,12 +71,12 @@ CREATE TABLE IF NOT EXISTS `words_schema`.`words_lists` (
   INDEX `lang2_id` (`lang2_id` ASC) VISIBLE,
   CONSTRAINT `words_lists_ibfk_1`
     FOREIGN KEY (`lang1_id`)
-    REFERENCES `words_schema`.`languages` (`lang_id`)
+    REFERENCES `wordloop_data`.`languages` (`lang_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `words_lists_ibfk_2`
     FOREIGN KEY (`lang2_id`)
-    REFERENCES `words_schema`.`languages` (`lang_id`)
+    REFERENCES `wordloop_data`.`languages` (`lang_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB
@@ -89,21 +84,21 @@ DEFAULT CHARACTER SET = utf8mb3;
 
 
 -- -----------------------------------------------------
--- Table `words_schema`.`words_lists_words`
+-- Table `wordloop_data`.`words_lists_words`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `words_schema`.`words_lists_words` (
+CREATE TABLE IF NOT EXISTS `wordloop_data`.`words_lists_words` (
   `list_id` INT NOT NULL AUTO_INCREMENT,
   `word_id` INT NOT NULL,
   PRIMARY KEY (`list_id`),
   INDEX `word_id` (`word_id` ASC) VISIBLE,
   CONSTRAINT `words_lists_words_ibfk_1`
     FOREIGN KEY (`list_id`)
-    REFERENCES `words_schema`.`words_lists` (`list_id`)
+    REFERENCES `wordloop_data`.`words_lists` (`list_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE,
   CONSTRAINT `words_lists_words_ibfk_2`
     FOREIGN KEY (`word_id`)
-    REFERENCES `words_schema`.`words` (`word_id`)
+    REFERENCES `wordloop_data`.`words` (`word_id`)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
 ENGINE = InnoDB

@@ -1,23 +1,44 @@
 # Wordloop
  
-## Step 1 || Working with Docker and database
-Firstly you need to create docker image and run it by command in terminal with installed docker:
+## Step 1 || Creating docker image from Dockerfile.
+Firstly you need to create a docker image by command in terminal with installed docker:
+
+Open project folder in terminal and select migrations folder by:
 ```
- docker run --name words -p 3006:3306 -e MYSQL_ROOT_PASSWORD=1010 -d mysql
+cd db/migrations 
+```
+Then build an image by command:
+
+```
+docker build -t db_wordloop_image . 
+
 ```
 
-## Step 2 || Working with MySql Workbench
-Create connection with parameters:
+## Step 2 || Using docker container.
+
+Run container with port 3006 and image by command:
 ```
-collection name: Words Db
+docker run --name db_wordloop_container -p 3006:3006 -d db_wordloop_image 
+```
+---
+Also you can log in to database in terminal and do any you want with database.
+For it you need bash in your container:
+```
+docker exec -it db_wordloop_container bash
+```
+Then log in:
+```
+mysql -uadmin -padmin
+```
+
+## Step 3 || Connecting to database from SQL Workbench as example
+
+You can create a connection with parameters:
+```
 port: 3306
-username: root
-password: 1010
+username: admin
+password: admin
 ```
-## Step 3 || Complete migration from db/migration
-Copy migration script frob db/migration
-Paste copied script to query and execute
-
 
 
 
