@@ -11,7 +11,6 @@ Then build an image by command:
 
 ```
 docker build -t db_wordloop_image . 
-
 ```
 
 ## Step 2 || Using docker container.
