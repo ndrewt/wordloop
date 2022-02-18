@@ -1,7 +1,7 @@
 # Wordloop
  
 ## Step 1 || Creating docker image from Dockerfile.
-Firstly you need to create a docker image by command in terminal with installed docker:
+Firstly you need to create a docker image by command in terminal with installed docker.
 
 Open project folder in terminal and select migrations folder by:
 ```
