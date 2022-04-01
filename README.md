@@ -3,12 +3,8 @@
 ## Step 1 || Creating docker image from Dockerfile.
 Firstly you need to create a docker image by command in terminal with installed docker.
 
-Open project folder in terminal and select migrations folder by:
-```
-cd db/migrations 
-```
+Open project folder in terminal.
 Then build an image by command:
-
 ```
 docker build -t db_wordloop_image . 
 ```
