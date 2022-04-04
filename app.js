@@ -19,7 +19,7 @@ const swaggerSpec = {
             url: "http://localhost:3000"
         }]
     },
-    apis: ['./routes/*.js']
+    apis: ['./middleware/swagger.js']
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerSpec)
