@@ -33,6 +33,6 @@ module.exports = class User {
     }
 
     static deleteUser(user_id) {
-        db.execute('DELETE FROM users where id = ?', [user_id])
+        db.execute('DELETE FROM users where user_id = ?', [user_id])
     }
 }

@@ -1,6 +1,7 @@
 require("dotenv").config()
 const express = require('express')
 const authRouter = require('./routes/auth')
+const LangRouter = require('./routes/languages')
     //swagger
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -13,13 +14,25 @@ const swaggerSpec = {
         info: {
             title: 'Wordloop API',
             description: 'Wordloop API Information',
-            version: '1.0.0'
+            version: '1.0.1'
         },
         servers: [{
             url: "http://localhost:3000"
-        }]
+        }],
+        components: {
+            securitySchemes: {
+                bearerAuth: {
+                    type: 'http',
+                    scheme: 'bearer',
+                    bearerFormat: 'JWT'
+                }
+            }
+        },
+        security: [{
+            bearerAuth: []
+        }],
     },
-    apis: ['./middleware/swagger.js']
+    apis: ['./src/middleware/swagger.js']
 }
 
 const swaggerDocs = swaggerJsDoc(swaggerSpec)
@@ -29,6 +42,8 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 app.use(express.json())
 
 app.use('/api/users', authRouter)
+
+app.use('/api/languages', LangRouter)
 
 app.use('/api', (req, res, next) => {
     res.json('Welcome to wordloop API!!!')

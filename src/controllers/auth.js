@@ -1,6 +1,7 @@
 const User = require('../models/user')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const { body, validationResult } = require('express-validator');
 
 exports.postSignup = (req, res, next) => {
     const name = req.body.user_name
@@ -10,6 +11,7 @@ exports.postSignup = (req, res, next) => {
     User
         .findByLogin(login)
         .then(([result]) => {
+
             if (result.length < 1) {
                 const user = new User(null, name, login, password)
                 user
