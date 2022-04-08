@@ -1,3 +1,5 @@
+//-----------SCHEMAS-----------
+
 /**
  * @swagger
  * components:
@@ -66,6 +68,30 @@
 
 /**
  * @swagger
+ * components:
+ *   schemas:
+ *     language_update:
+ *       type: object
+ *       properties:
+ *         lang_id:
+ *           type: string
+ *           description: Language id.
+ *         lang_name:
+ *           type: string
+ *           description: Language name.
+ *       required:
+ *         - lang_id
+ *         - lang_name
+ *       example:
+ *         lang_id: 1
+ *         lang_name: example_name
+ * 
+ */
+
+//-----------AUNTIFICATION-----------
+
+/**
+ * @swagger
  * /api/users/signup:
  *  post:
  *    summary: Create a new user.
@@ -108,12 +134,14 @@
  *        description: Invalid login or password.
  */
 
+//-----------LANGUAGES-----------
+
 /**
  * @swagger
  * /api/languages/add:
  *  post:
  *    summary: Add new language.
- *    tags: [Languges]
+ *    tags: [Languages]
  *    requestBody:
  *      required: true
  *      content:
@@ -136,14 +164,90 @@
  * @swagger
  * /api/languages/all:
  *   get:
- *     summary: Gets all languages
- *     tags: [Languges]
- *     description: Fetching all data from languages
+ *     summary: Gets all languages.
+ *     tags: [Languages]
+ *     description: Fetching all data from languages.
  *     responses:
  *       200:
- *         description: Successfull 
+ *         description: Successfull.
+ *       403:
+ *        description: Access denied! You need to be authorized.
  *       404:
  *         description: Language list is empty.
  *       500:
  *         description: Sever-side error.   
+ */
+
+/**
+ * @swagger
+ * /api/languages/id/{lang_id}:
+ *   get:
+ *     summary: Gets language by id.
+ *     tags: [Languages]
+ *     description: Fetching by id from languages.
+ *     parameters:
+ *        - in: path
+ *          name: lang_id
+ *          required: true
+ *          description: Numeruc ID required.
+ *          schema:
+ *            type: integer
+ *     responses:
+ *       200:
+ *         description: Successfull.
+ *       403:
+ *        description: Access denied! You need to be authorized.
+ *       404:
+ *         description: Record not found.
+ *       500:
+ *         description: Sever-side error. 
+ */
+
+/**
+ * @swagger
+ * /api/languages/update:
+ *  put:
+ *    summary: Update existing language.
+ *    tags: [Languages]
+ *    requestBody:
+ *      required: true
+ *      content:
+ *        application/json:
+ *          schema:
+ *            type: object
+ *            $ref: '#/components/schemas/language_update'
+ *    responses:
+ *      201:
+ *        description: Updated successfully.
+ *      404:
+ *        description: Invalid id.
+ *      403:
+ *        description: Access denied! You need to be authorized.
+ *      500:
+ *        description: Sever-side error.
+ */
+
+/**
+ * @swagger
+ * /api/languages/delete/{lang_id}:
+ *  delete:
+ *     summary: Deletes language by id.
+ *     tags: [Languages]
+ *     description: Fetching by id from languages.
+ *     parameters:
+ *        - in: path
+ *          name: lang_id
+ *          required: true
+ *          description: Numeruc ID required.
+ *          schema:
+ *            type: integer
+ *     responses:
+ *       200:
+ *         description: Record successfully deleted.
+ *       403:
+ *        description: Access denied! You need to be authorized.
+ *       404:
+ *         description: Record not found.
+ *       500:
+ *         description: Sever-side error.  
  */

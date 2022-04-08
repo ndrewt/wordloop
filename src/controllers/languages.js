@@ -9,7 +9,7 @@ exports.postAdd = (req, res, next) => {
             if (result.length < 1) {
                 lang
                     .save()
-                    .then(result => {
+                    .then(() => {
                         return res.status(201).json({
                             success: 0,
                             message: "Language successfully added."
@@ -21,6 +21,31 @@ exports.postAdd = (req, res, next) => {
                     message: "Language is taken, try another one."
                 })
 
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({
+                success: 0,
+                message: "Server-side error."
+            })
+        })
+}
+
+exports.getById = (req, res, next) => {
+    const id = req.params.lang_id
+    Language
+        .findById(id)
+        .then(([result]) => {
+            if (result.length < 1) {
+                return res.status(404).json({
+                    success: 0,
+                    message: "Record not found."
+                })
+            } else {
+                return res.status(200).json({
+                    success: 1,
+                    data: result
+                })
             }
         })
         .catch(err => {
@@ -55,11 +80,56 @@ exports.getAll = (req, res, next) => {
         })
 }
 
-// exports.delete= (req,res,next)=>{
-//     const name = req.params.lang_id
-//     Language
-//     .deleteByName(name)
-//     .then()
-// }
+exports.putUpdate = (req, res, next) => {
+    const id = req.body.lang_id
+    const name = req.body.lang_name
+    Language
+        .findById(id)
+        .then(([result]) => {
+            if (result.length < 1) {
+                return res.status(404).json({
+                    success: 0,
+                    message: "Invalid id."
+                })
+            } else {
+                Language.update(name, id)
+                return res.status(201).json({
+                    success: 1,
+                    message: "Updated successfully."
+                })
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({
+                success: 0,
+                message: "Server-side error."
+            })
+        })
+}
 
-exports.delete
+exports.deleteById = (req, res, next) => {
+    const id = req.params.lang_id
+    Language
+        .findById(id)
+        .then(([result]) => {
+            if (result.length > 0) {
+                Language.deleteById(id)
+                return res.status(200).json({
+                    success: 1,
+                    message: "Record successfully deleted."
+                })
+            } else {
+                return res.status(404).json({
+                    success: 0,
+                    message: "Record not found."
+                })
+            }
+        })
+        .catch(err => {
+            return res.status(500).json({
+                success: 0,
+                message: "Server-side error."
+            })
+        })
+
+}
