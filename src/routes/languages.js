@@ -1,5 +1,5 @@
 const LangController = require('../controllers/languages')
-const { is_auth } = require('../middleware/is-auth')
+const { is_auth } = require('../middleware/jwtHelper')
 const router = require('express').Router()
 
 router.post('/add', is_auth, LangController.postAdd)

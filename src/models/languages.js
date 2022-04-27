@@ -1,12 +1,13 @@
 const db = require('../db/dbConnect')
 
 module.exports = class Languages {
-    constructor(lang_id, lang_name) {
+    constructor(lang_id, lang_name, user_id) {
         this.lang_id = lang_id
         this.lang_name = lang_name
+        this.user_id = user_id
     }
     save() {
-        return db.execute('INSERT INTO languages(lang_name) VALUES(?)', [this.lang_name])
+        return db.execute('INSERT INTO languages(lang_name, user_id) VALUES(?,?)', [this.lang_name, this.user_id])
     }
 
     static findById(lang_id) {
@@ -21,9 +22,10 @@ module.exports = class Languages {
         return db.execute('SELECT * FROM languages')
     }
 
-    static update(lang_name, lang_id) {
-        db.execute('UPDATE languages SET lang_name=? WHERE lang_id = ?', [
+    static update(lang_name, user_id, lang_id) {
+        db.execute('UPDATE languages SET lang_name=?, user_id=? WHERE lang_id = ?', [
             lang_name,
+            user_id,
             lang_id
         ])
     }

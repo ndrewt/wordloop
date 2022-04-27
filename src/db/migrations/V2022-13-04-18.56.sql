@@ -11,6 +11,7 @@ SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,N
 CREATE TABLE IF NOT EXISTS `wordloop_data`.`languages` (
   `lang_id` INT NOT NULL AUTO_INCREMENT,
   `lang_name` VARCHAR(45) NOT NULL,
+  `user_id` VARCHAR(45) NOT NULL
   PRIMARY KEY (`lang_id`))
 ENGINE = InnoDB
 DEFAULT CHARACTER SET = utf8mb3;
@@ -87,9 +88,8 @@ DEFAULT CHARACTER SET = utf8mb3;
 -- Table `wordloop_data`.`words_lists_words`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `wordloop_data`.`words_lists_words` (
-  `list_id` INT NOT NULL AUTO_INCREMENT,
+  `list_id` INT NOT NULL ,
   `word_id` INT NOT NULL,
-  PRIMARY KEY (`list_id`),
   INDEX `word_id` (`word_id` ASC) VISIBLE,
   CONSTRAINT `words_lists_words_ibfk_1`
     FOREIGN KEY (`list_id`)

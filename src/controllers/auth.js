@@ -11,7 +11,6 @@ exports.postSignup = (req, res, next) => {
     User
         .findByLogin(login)
         .then(([result]) => {
-
             if (result.length < 1) {
                 const user = new User(null, name, login, password)
                 user
@@ -59,8 +58,8 @@ exports.postlogin = (req, res, next) => {
                 .then(doMatch => {
                     if (doMatch) {
                         results[0].user_password = undefined
-                        const jsonwebtoken = jwt.sign({ result: results[0] }, process.env.JWT_KEY, {
-                            expiresIn: "1h"
+                        const jsonwebtoken = jwt.sign({ data: results[0] }, process.env.JWT_KEY, {
+                            expiresIn: "1w"
                         })
                         return res.status(200).json({
                             success: 1,

@@ -1,7 +1,11 @@
 require("dotenv").config()
 const express = require('express')
-const authRouter = require('./routes/auth')
+    //routes
+const AuthRouter = require('./routes/auth')
 const LangRouter = require('./routes/languages')
+const WordsRouter = require('./routes/words')
+const ListsRouter = require('./routes/words-lists')
+const ListWordsRouter = require('./routes/words-lists-words')
     //swagger
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -41,12 +45,18 @@ app.use('/api-doc', swaggerUi.serve, swaggerUi.setup(swaggerDocs))
 
 app.use(express.json())
 
-app.use('/api/users', authRouter)
+app.use('/api/users', AuthRouter)
 
 app.use('/api/languages', LangRouter)
 
+app.use('/api/words', WordsRouter)
+
+app.use('/api/words-lists', ListsRouter)
+
+app.use('/api/words-lists-words', ListWordsRouter)
+
 app.use('/api', (req, res, next) => {
-    res.json('Welcome to wordloop API!!!')
+    res.json('False route.')
 })
 
 app.listen(process.env.APP_PORT || '3000', () => {

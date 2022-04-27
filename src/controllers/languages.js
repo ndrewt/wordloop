@@ -1,8 +1,10 @@
+const jwtHelper = require('../middleware/jwtHelper')
 const Language = require('../models/languages')
 
 exports.postAdd = (req, res, next) => {
     const name = req.body.lang_name
-    const lang = new Language(null, name)
+    const id = jwtHelper.decodeId(req)
+    const lang = new Language(null, name, id)
     Language
         .findByName(name)
         .then(([result]) => {
@@ -83,6 +85,7 @@ exports.getAll = (req, res, next) => {
 exports.putUpdate = (req, res, next) => {
     const id = req.body.lang_id
     const name = req.body.lang_name
+    const creator_id = jwtHelper.decodeId(req)
     Language
         .findById(id)
         .then(([result]) => {
@@ -92,7 +95,7 @@ exports.putUpdate = (req, res, next) => {
                     message: "Invalid id."
                 })
             } else {
-                Language.update(name, id)
+                Language.update(name, creator_id, id)
                 return res.status(201).json({
                     success: 1,
                     message: "Updated successfully."

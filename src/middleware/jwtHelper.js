@@ -20,5 +20,10 @@ module.exports = {
                 message: "Access denied! You need to be authorized."
             })
         }
+    },
+    decodeId: (req, res, next) => {
+        let token = req.get('authorization').slice(7)
+        const decoded = jwt.decode(token).data.user_id
+        return decoded
     }
 }
