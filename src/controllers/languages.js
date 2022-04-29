@@ -35,8 +35,9 @@ exports.postAdd = (req, res, next) => {
 
 exports.getById = (req, res, next) => {
     const id = req.params.lang_id
+    const user_id = jwtHelper.decodeId(req)
     Language
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -59,8 +60,9 @@ exports.getById = (req, res, next) => {
 }
 
 exports.getAll = (req, res, next) => {
+    const user_id = jwtHelper.decodeId(req)
     Language
-        .getAll()
+        .getAll(user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -85,9 +87,9 @@ exports.getAll = (req, res, next) => {
 exports.putUpdate = (req, res, next) => {
     const id = req.body.lang_id
     const name = req.body.lang_name
-    const creator_id = jwtHelper.decodeId(req)
+    const user_id = jwtHelper.decodeId(req)
     Language
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -95,7 +97,7 @@ exports.putUpdate = (req, res, next) => {
                     message: "Invalid id."
                 })
             } else {
-                Language.update(name, creator_id, id)
+                Language.update(name, user_id, id)
                 return res.status(201).json({
                     success: 1,
                     message: "Updated successfully."
@@ -112,8 +114,9 @@ exports.putUpdate = (req, res, next) => {
 
 exports.deleteById = (req, res, next) => {
     const id = req.params.lang_id
+    const user_id = jwtHelper.decodeId(req)
     Language
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length > 0) {
                 Language.deleteById(id)

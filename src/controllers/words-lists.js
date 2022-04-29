@@ -1,6 +1,7 @@
 const jwtHelper = require('../middleware/jwtHelper')
 const Languages = require('../models/languages')
 const Wordslist = require('../models/words-lists')
+const ListWords = require('../models/words-lists-words')
 
 exports.postAdd = (req, res, next) => {
     const name = req.body.list_name
@@ -9,7 +10,7 @@ exports.postAdd = (req, res, next) => {
     const user_id = jwtHelper.decodeId(req)
     const list = new Wordslist(null, name, lang1_id, lang2_id, user_id)
     Languages
-        .findById(lang1_id)
+        .findById(lang1_id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -18,7 +19,7 @@ exports.postAdd = (req, res, next) => {
                 })
             } else {
                 Languages
-                    .findById(lang2_id)
+                    .findById(lang2_id, user_id)
                     .then(([result]) => {
                         if (result.length < 1) {
                             return res.status(404).json({
@@ -50,7 +51,7 @@ exports.getById = (req, res, next) => {
     const id = req.params.list_id
     const user_id = jwtHelper.decodeId(req)
     Wordslist
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -105,7 +106,7 @@ exports.putUpdate = (req, res, next) => {
     const lang2_id = req.body.lang2_id
     const user_id = jwtHelper.decodeId(req)
     Wordslist
-        .findById(list_id)
+        .findById(list_id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -114,7 +115,7 @@ exports.putUpdate = (req, res, next) => {
                 })
             } else {
                 Languages
-                    .findById(lang1_id)
+                    .findById(lang1_id, user_id)
                     .then(([result]) => {
                         if (result.length < 1) {
                             return res.status(404).json({
@@ -123,7 +124,7 @@ exports.putUpdate = (req, res, next) => {
                             })
                         } else {
                             Languages
-                                .findById(lang2_id)
+                                .findById(lang2_id, user_id)
                                 .then(([result]) => {
                                     if (result.length < 1) {
                                         return res.status(404).json({
@@ -155,11 +156,13 @@ exports.putUpdate = (req, res, next) => {
 
 exports.deleteById = (req, res, next) => {
     const id = req.params.list_id
+    const user_id = jwtHelper.decodeId(req)
     Wordslist
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length > 0) {
-                Wordslist.deleteById(id)
+                ListWords.deleteAllById(id)
+                Wordslist.deleteById(id, user_id)
                 return res.status(200).json({
                     success: 1,
                     message: "Record successfully deleted."
@@ -172,6 +175,7 @@ exports.deleteById = (req, res, next) => {
             }
         })
         .catch(err => {
+            console.log(err)
             return res.status(500).json({
                 success: 0,
                 message: "Server-side error."

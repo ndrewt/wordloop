@@ -10,16 +10,16 @@ module.exports = class Languages {
         return db.execute('INSERT INTO languages(lang_name, user_id) VALUES(?,?)', [this.lang_name, this.user_id])
     }
 
-    static findById(lang_id) {
-        return db.execute('SELECT * FROM languages WHERE lang_id = ?', [lang_id])
+    static findById(lang_id, user_id) {
+        return db.execute('SELECT * FROM languages WHERE lang_id = ? AND user_id=?', [lang_id, user_id])
     }
 
     static findByName(lang_name) {
         return db.execute('SELECT * FROM languages WHERE lang_name = ?', [lang_name])
     }
 
-    static getAll() {
-        return db.execute('SELECT * FROM languages')
+    static getAll(user_id) {
+        return db.execute('SELECT * FROM languages WHERE user_id = ?', [user_id])
     }
 
     static update(lang_name, user_id, lang_id) {

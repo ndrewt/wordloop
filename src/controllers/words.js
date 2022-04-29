@@ -10,7 +10,7 @@ exports.postAdd = (req, res, next) => {
     const desc = req.body.description
     const user_id = jwtHelper.decodeId(req)
     Language
-        .findById(lang1_id)
+        .findById(lang1_id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -19,7 +19,7 @@ exports.postAdd = (req, res, next) => {
                 })
             } else {
                 Language
-                    .findById(lang2_id)
+                    .findById(lang2_id, user_id)
                     .then(([result]) => {
                         if (result.length < 1) {
                             return res.status(404).json({
@@ -41,7 +41,6 @@ exports.postAdd = (req, res, next) => {
             }
         })
         .catch(err => {
-            console.log(err)
             return res.status(500).json({
                 success: 0,
                 message: "Server-side error."
@@ -50,9 +49,10 @@ exports.postAdd = (req, res, next) => {
 }
 
 exports.getById = (req, res, next) => {
+    const user_id = jwtHelper.decodeId(req)
     const id = req.params.word_id
     Word
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -75,8 +75,9 @@ exports.getById = (req, res, next) => {
 }
 
 exports.getAll = (req, res, next) => {
+    const user_id = jwtHelper.decodeId(req)
     Word
-        .getAll()
+        .getAll(user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -107,7 +108,7 @@ exports.putUpdate = (req, res, next) => {
     const desc = req.body.description
     const user_id = jwtHelper.decodeId(req)
     Language
-        .findById(lang1_id)
+        .findById(lang1_id, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 return res.status(404).json({
@@ -116,7 +117,7 @@ exports.putUpdate = (req, res, next) => {
                 })
             } else {
                 Language
-                    .findById(lang2_id)
+                    .findById(lang2_id, user_id)
                     .then(([result]) => {
                         if (result.length < 1) {
                             return res.status(404).json({
@@ -125,7 +126,7 @@ exports.putUpdate = (req, res, next) => {
                             })
                         } else {
                             Word
-                                .findById(word_id)
+                                .findById(word_id, user_id)
                                 .then(([result]) => {
                                     if (result.length < 1) {
                                         return res.status(404).json({
@@ -154,8 +155,9 @@ exports.putUpdate = (req, res, next) => {
 
 exports.deleteById = (req, res, next) => {
     const id = req.params.word_id
+    const user_id = jwtHelper.decodeId(req)
     Word
-        .findById(id)
+        .findById(id, user_id)
         .then(([result]) => {
             if (result.length > 0) {
                 Word.deleteById(id)

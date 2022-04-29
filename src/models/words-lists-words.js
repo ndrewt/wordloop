@@ -8,7 +8,9 @@ module.exports = class WordsListsWords {
     save() {
         return db.execute('INSERT INTO words_lists_words(list_id, word_id) VALUES(?,?)', [this.list_id, this.word_id])
     }
-
+    static findByIds(list_id, word_id) {
+        return db.execute('SELECT word_id FROM words_lists_words WHERE list_id = ? AND word_id = ?', [list_id, word_id])
+    }
     static findByListId(list_id) {
         return db.execute('SELECT word_id FROM words_lists_words WHERE list_id = ?', [list_id])
     }
@@ -30,7 +32,10 @@ module.exports = class WordsListsWords {
             list_id
         ])
     }
+    static deleteAllById(list_id) {
+        db.execute('DELETE FROM words_lists_words where list_id= ?', [list_id])
 
+    }
     static deleteById(word_id) {
         db.execute('DELETE FROM words_lists_words where word_id= ?', [word_id])
     }
