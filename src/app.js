@@ -56,7 +56,10 @@ app.use('/api/words-lists', ListsRouter)
 app.use('/api/words-lists-words', ListWordsRouter)
 
 app.use('/api', (req, res, next) => {
-    res.json('False route.')
+    res.status(404).json({
+        sucess: 0,
+        message: 'Invalid route.'
+    })
 })
 
 app.listen(process.env.APP_PORT || '3000', () => {

@@ -1,7 +1,6 @@
 const User = require('../models/user')
-const bcrypt = require('bcrypt')
+const bcrypt = require('bcryptjs')
 const jwt = require('jsonwebtoken')
-const { body, validationResult } = require('express-validator');
 
 exports.postSignup = (req, res, next) => {
     const name = req.body.user_name

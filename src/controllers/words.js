@@ -17,28 +17,28 @@ exports.postAdd = (req, res, next) => {
                     success: 0,
                     message: "Language 1 not found."
                 })
-            } else {
-                Language
-                    .findById(lang2_id, user_id)
-                    .then(([result]) => {
-                        if (result.length < 1) {
-                            return res.status(404).json({
-                                success: 0,
-                                message: "Language 2 not found."
-                            })
-                        } else {
-                            const word = new Word(null, word1, word2, lang1_id, lang2_id, desc, user_id)
-                            word
-                                .save()
-                                .then(() => {
-                                    return res.status(201).json({
-                                        success: 0,
-                                        message: "Word successfully added."
-                                    })
-                                })
-                        }
-                    })
             }
+            Language
+                .findById(lang2_id, user_id)
+                .then(([result]) => {
+                    if (result.length < 1) {
+                        return res.status(404).json({
+                            success: 0,
+                            message: "Language 2 not found."
+                        })
+                    }
+                    const word = new Word(null, word1, word2, lang1_id, lang2_id, desc, user_id)
+                    word
+                        .save()
+                        .then(() => {
+                            return res.status(201).json({
+                                success: 0,
+                                message: "Word successfully added."
+                            })
+                        })
+
+                })
+
         })
         .catch(err => {
             return res.status(500).json({
@@ -59,12 +59,12 @@ exports.getById = (req, res, next) => {
                     success: 0,
                     message: "Record not found."
                 })
-            } else {
-                return res.status(200).json({
-                    success: 1,
-                    data: result
-                })
             }
+            return res.status(200).json({
+                success: 1,
+                data: result
+            })
+
         })
         .catch(err => {
             return res.status(500).json({
@@ -84,12 +84,12 @@ exports.getAll = (req, res, next) => {
                     success: 0,
                     message: "Language list is empty."
                 })
-            } else {
-                return res.status(200).json({
-                    success: 1,
-                    data: result
-                })
             }
+            return res.status(200).json({
+                success: 1,
+                data: result
+            })
+
         })
         .catch(err => {
             return res.status(500).json({
@@ -124,24 +124,24 @@ exports.putUpdate = (req, res, next) => {
                                 success: 0,
                                 message: "Language 2 not found."
                             })
-                        } else {
-                            Word
-                                .findById(word_id, user_id)
-                                .then(([result]) => {
-                                    if (result.length < 1) {
-                                        return res.status(404).json({
-                                            success: 0,
-                                            message: "Invalid id."
-                                        })
-                                    } else {
-                                        Word.update(word1, word2, lang1_id, lang2_id, desc, user_id, word_id)
-                                        return res.status(201).json({
-                                            success: 1,
-                                            message: "Updated successfully."
-                                        })
-                                    }
-                                })
                         }
+                        Word
+                            .findById(word_id, user_id)
+                            .then(([result]) => {
+                                if (result.length < 1) {
+                                    return res.status(404).json({
+                                        success: 0,
+                                        message: "Invalid id."
+                                    })
+                                }
+                                Word.update(word1, word2, lang1_id, lang2_id, desc, user_id, word_id)
+                                return res.status(201).json({
+                                    success: 1,
+                                    message: "Updated successfully."
+                                })
+
+                            })
+
                     })
             }
         })
@@ -165,12 +165,12 @@ exports.deleteById = (req, res, next) => {
                     success: 1,
                     message: "Record successfully deleted."
                 })
-            } else {
-                return res.status(404).json({
-                    success: 0,
-                    message: "Record not found."
-                })
             }
+            return res.status(404).json({
+                success: 0,
+                message: "Record not found."
+            })
+
         })
         .catch(err => {
             return res.status(500).json({

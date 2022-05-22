@@ -167,12 +167,11 @@ exports.deleteById = (req, res, next) => {
                     success: 1,
                     message: "Record successfully deleted."
                 })
-            } else {
-                return res.status(404).json({
-                    success: 0,
-                    message: "Record not found."
-                })
             }
+            return res.status(404).json({
+                success: 0,
+                message: "Record not found."
+            })
         })
         .catch(err => {
             console.log(err)

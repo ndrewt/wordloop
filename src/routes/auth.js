@@ -1,11 +1,12 @@
 const authController = require('../controllers/auth')
 const adminController = require('../controllers/admin')
 const { is_auth } = require('../middleware/jwtHelper')
+const { loginValidation, singUpValidation } = require('../validation/validation')
 const router = require('express').Router()
 
-router.post('/signup', authController.postSignup)
+router.post('/signup', singUpValidation, authController.postSignup)
 
-router.post('/login', authController.postlogin)
+router.post('/login', loginValidation, authController.postlogin)
 
 
 // SOON
