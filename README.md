@@ -1,38 +1,34 @@
 # Wordloop
  
-## Step 1 || Creating docker image from Dockerfile.
-Firstly you need to create a docker image by command in terminal with installed docker.
+## Creating docker containers.
 
-Open project folder in terminal.
-Then build an image by command:
+Firstly you need to open project folder in terminal.
+Then up containers by command:
 ```
-docker build -t db_wordloop_image . 
+docker-compose up
 ```
 
-## Step 2 || Using docker container.
+## Using app.
 
-Run container with port 3006 and image by command:
-```
-docker run --name db_wordloop_container -p 3006:3006 -d db_wordloop_image 
-```
+Open app doc in browser by route: http://localhost:3000/api-doc
 ---
-Also you can log in to database in terminal and do any you want with database.
+Also you can log in to database in terminal where you can check data or update something you want.
 For it you need bash:
 ```
-docker exec -it db_wordloop_container bash
+docker exec -it wordloop_db_1  bash    
 ```
-Then log in:
+Then log in with your user and password from docker-compose :
 ```
-mysql -uadmin -padmin
+mysql -uroot -pwordloop_2022_4
 ```
 
-## Step 3 || Connecting to database from SQL Workbench as example
+## Connecting to database from SQL Workbench as example
 
 You can create a connection with parameters:
 ```
 port: 3306
-username: admin
-password: admin
+username: root
+password: wordloop_2022_4
 ```
 
 

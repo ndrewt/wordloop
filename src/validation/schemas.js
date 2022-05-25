@@ -17,7 +17,7 @@ const schema = {
         lang_name: joi.string().required()
     }),
     langUpdate: joi.object({
-        lang_id: joi.string().required(),
+        lang_id: joi.number().required(),
         lang_name: joi.string().required()
     }),
     //WORDS SCHEMAS

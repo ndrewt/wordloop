@@ -1,19 +1,21 @@
 version: "3.8"
 services:
-
-  mysql_server:
+  db:
     image: mysql:8.0
     expose:
-      - "3307"
+      - "3306"
+    hostname: mysql
     ports:
-      - "3307:3307"
+      - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=1010
+      - MYSQL_ROOT_PASSWORD=wordloop_2022_4
       - MYSQL_DATABASE=wordloop_data
     volumes:
       - ./src/db/migrations/V2022-13-04-18.56.sql:/docker-entrypoint-initdb.d/migration.sql
     command: --default-authentication-plugin=mysql_native_password
-
+      
+    networks:
+      - wordloopAPI
   app:
     build:
       context: .
@@ -23,4 +25,8 @@ services:
     volumes:
       - .:/app
     depends_on:
-      - mysql_server
+      - db
+    networks:
+      - wordloopAPI
+networks:
+  wordloopAPI:
