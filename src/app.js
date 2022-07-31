@@ -65,3 +65,5 @@ app.use('/api', (req, res, next) => {
 app.listen(process.env.APP_PORT || '3000', () => {
     console.log('Server has been started on port:', process.env.APP_PORT || 3000)
 })
+
+module.exports = app

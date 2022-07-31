@@ -26,7 +26,7 @@ const schema = {
         word_lang2: joi.string().required(),
         lang1_id: joi.number().required(),
         lang2_id: joi.number().required(),
-        description: joi.string().required()
+        description: joi.string()
     }),
     wordUpdate: joi.object({
         word_id: joi.number().required(),

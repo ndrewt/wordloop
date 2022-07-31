@@ -14,8 +14,8 @@ module.exports = class Languages {
         return db.execute('SELECT * FROM languages WHERE lang_id = ? AND user_id=?', [lang_id, user_id])
     }
 
-    static findByName(lang_name) {
-        return db.execute('SELECT * FROM languages WHERE lang_name = ?', [lang_name])
+    static findByName(lang_name, user_id) {
+        return db.execute('SELECT * FROM languages WHERE lang_name = ? AND user_id=?', [lang_name, user_id])
     }
 
     static getAll(user_id) {
@@ -32,5 +32,9 @@ module.exports = class Languages {
 
     static deleteById(lang_id) {
         db.execute('DELETE FROM languages where lang_id = ?', [lang_id])
+    }
+
+    static deleteByName(lang_name) {
+        db.execute('DELETE FROM languages where lang_name = ? ', [lang_name])
     }
 }

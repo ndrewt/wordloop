@@ -5,7 +5,7 @@ module.exports = {
     loginValidation: (req, res, next) => {
         const value = login.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -16,7 +16,7 @@ module.exports = {
     singUpValidation: (req, res, next) => {
         const value = signup.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -28,7 +28,7 @@ module.exports = {
     addLangValidation: (req, res, next) => {
         const value = langAdd.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -39,7 +39,7 @@ module.exports = {
     langUpdateValidation: (req, res, next) => {
         const value = langUpdate.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -51,7 +51,7 @@ module.exports = {
     wordAddValidation: (req, res, next) => {
         const value = wordAdd.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -62,7 +62,7 @@ module.exports = {
     wordUpdateValidation: (req, res, next) => {
         const value = wordUpdate.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -74,7 +74,7 @@ module.exports = {
     listAddValidation: (req, res, next) => {
         const value = listAdd.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -85,7 +85,7 @@ module.exports = {
     listUpdateValidation: (req, res, next) => {
         const value = listUpdate.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })
@@ -97,7 +97,7 @@ module.exports = {
     wordListAddValidation: (req, res, next) => {
         const value = wordsListAdd.validate(req.body)
         if (value.error) {
-            res.json({
+            res.status(403).json({
                 success: 0,
                 message: value.error.details[0].message
             })

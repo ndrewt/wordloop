@@ -470,14 +470,14 @@
 
 /**
  * @swagger
- * /api/words/id/{lang_id}:
+ * /api/words/id/{word_id}:
  *   get:
  *     summary: Gets words by id.
  *     tags: [Words]
  *     description: Fetching by id from languages.
  *     parameters:
  *        - in: path
- *          name: lang_id
+ *          name: word_id
  *          required: true
  *          description: Numeruc ID required.
  *          schema:

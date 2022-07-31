@@ -33,7 +33,7 @@ exports.postSignup = (req, res, next) => {
             console.log(err)
             return res.status(500).json({
                 success: 0,
-                message: "Database connection error."
+                message: "Server-side error."
             })
         })
 
@@ -43,9 +43,11 @@ exports.postSignup = (req, res, next) => {
 exports.postlogin = (req, res, next) => {
     const body = req.body
     const password = body.user_password
+    let id
     User
         .findByLogin(body.user_login)
         .then(([results]) => {
+            id = results[0].user_id
             if (results.length < 1) {
                 return res.status(400).json({
                     success: 0,
@@ -58,12 +60,13 @@ exports.postlogin = (req, res, next) => {
                     if (doMatch) {
                         results[0].user_password = undefined
                         const jsonwebtoken = jwt.sign({ data: results[0] }, process.env.JWT_KEY, {
-                            expiresIn: "1w"
+                            expiresIn: "60d"
                         })
                         return res.status(200).json({
                             success: 1,
                             message: "Successful login.",
-                            token: jsonwebtoken
+                            token: jsonwebtoken,
+                            user_id: id
                         })
                     } else {
                         return res.status(400).json({

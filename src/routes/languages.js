@@ -13,5 +13,7 @@ router.put('/update', langUpdateValidation, is_auth, LangController.putUpdate)
 
 router.delete('/delete/:lang_id', is_auth, LangController.deleteById)
 
+router.delete('/delete/name/:lang_name', is_auth, LangController.deleteByName)
+
 
 module.exports = router

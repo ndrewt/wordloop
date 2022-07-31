@@ -3,10 +3,10 @@ const Language = require('../models/languages')
 
 exports.postAdd = (req, res, next) => {
     const name = req.body.lang_name
-    const id = jwtHelper.decodeId(req)
-    const lang = new Language(null, name, id)
+    const user_id = jwtHelper.decodeId(req)
+    const lang = new Language(null, name, user_id)
     Language
-        .findByName(name)
+        .findByName(name, user_id)
         .then(([result]) => {
             if (result.length < 1) {
                 lang
@@ -22,7 +22,6 @@ exports.postAdd = (req, res, next) => {
                     success: 0,
                     message: "Language is taken, try another one."
                 })
-
             }
         })
         .catch(err => {
@@ -132,6 +131,35 @@ exports.deleteById = (req, res, next) => {
             }
         })
         .catch(err => {
+            return res.status(500).json({
+                success: 0,
+                message: "Server-side error."
+            })
+        })
+
+}
+
+exports.deleteByName = (req, res, next) => {
+    const lang_name = req.params.lang_name
+    const user_id = jwtHelper.decodeId(req)
+    Language
+        .findByName(lang_name, user_id)
+        .then(([result]) => {
+            if (result.length > 0) {
+                Language.deleteByName(lang_name)
+                return res.status(200).json({
+                    success: 1,
+                    message: "Record successfully deleted."
+                })
+            } else {
+                return res.status(404).json({
+                    success: 0,
+                    message: "Record not found."
+                })
+            }
+        })
+        .catch(err => {
+            console.log(err)
             return res.status(500).json({
                 success: 0,
                 message: "Server-side error."

@@ -15,7 +15,7 @@
     },
     "scripts": {
         "start": "nodemon ./src/app.js",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "test": "jest -i"
     },
     "repository": {
         "type": "git",
@@ -28,6 +28,8 @@
     },
     "homepage": "https://github.com/ndrewt/wordloop#readme",
     "devDependencies": {
-        "nodemon": "^2.0.15"
+        "jest": "^28.1.0",
+        "nodemon": "^2.0.15",
+        "supertest": "^6.2.3"
     }
 }
