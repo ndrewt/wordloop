@@ -26,7 +26,7 @@ Then up containers by command:
 docker-compose up
 ```
 
-## App using.
+## App using
 
 Open API doc in browser by route: http://localhost:3000/api-doc
 You will see there all aviable routes and request parameters.
