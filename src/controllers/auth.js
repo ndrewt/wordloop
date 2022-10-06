@@ -47,20 +47,20 @@ exports.postlogin = (req, res, next) => {
     User
         .findByLogin(body.user_login)
         .then(([results]) => {
-            id = results[0].user_id
             if (results.length < 1) {
                 return res.status(400).json({
                     success: 0,
                     message: 'Invalid login.'
                 })
             }
+            id = results[0].user_id
             const comp_pass = results[0].user_password
             bcrypt.compare(password, comp_pass)
                 .then(doMatch => {
                     if (doMatch) {
                         results[0].user_password = undefined
                         const jsonwebtoken = jwt.sign({ data: results[0] }, process.env.JWT_KEY, {
-                            expiresIn: "60d"
+                            expiresIn: process.env.JWT_EXPIRESIN
                         })
                         return res.status(200).json({
                             success: 1,
@@ -77,6 +77,7 @@ exports.postlogin = (req, res, next) => {
                 })
         })
         .catch(err => {
+            console.log(err)
             return res.status(500).json({
                 success: 0,
                 message: "Server-side error."

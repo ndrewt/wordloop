@@ -1,7 +1,14 @@
+
+
 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0;
 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0;
 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION';
 
+-- -----------------------------------------------------
+-- Schema wordloop_data
+-- -----------------------------------------------------
+CREATE SCHEMA IF NOT EXISTS wordloop_data DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_0900_ai_ci ;
+USE wordloop_data ;
 
 -- -----------------------------------------------------
 -- Table `wordloop_data`.`languages`
@@ -12,8 +19,7 @@ CREATE TABLE IF NOT EXISTS languages (
   user_id VARCHAR(45) NOT NULL,
   PRIMARY KEY (lang_id),
   INDEX lang_id (lang_id ASC) VISIBLE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -26,8 +32,7 @@ CREATE TABLE IF NOT EXISTS users (
   user_password VARCHAR(255) NOT NULL,
   PRIMARY KEY (user_id),
   INDEX user_id (user_id ASC) VISIBLE )
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -54,9 +59,7 @@ CREATE TABLE IF NOT EXISTS words (
     REFERENCES wordloop_data.languages (lang_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
-
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- -----------------------------------------------------
 -- Table `wordloop_data`.`words_lists`
@@ -80,8 +83,7 @@ CREATE TABLE IF NOT EXISTS words_lists (
     REFERENCES wordloop_data.languages (lang_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 
 -- -----------------------------------------------------
@@ -101,10 +103,18 @@ CREATE TABLE IF NOT EXISTS words_lists_words (
     REFERENCES wordloop_data.words (word_id)
     ON DELETE CASCADE
     ON UPDATE CASCADE)
-ENGINE = InnoDB
-DEFAULT CHARACTER SET = utf8mb3;
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
+-- -----------------------------------------------------
+-- Table `wordloop_data`.`tg_data`
+-- ----------------------------------------------------
 
+CREATE TABLE IF NOT EXISTS tg_data (
+  user_id INT NOT NULL,
+  telegram_id INT NOT NULL ,
+  token VARCHAR(300) NOT NULL
+   )
+ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;

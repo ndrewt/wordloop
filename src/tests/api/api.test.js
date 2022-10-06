@@ -1,20 +1,7 @@
 const request = require('supertest')
 const app = require('../../app')
-const db = require('../../db/dbConnect')
 
-let ress
-
-let token
-let lang_id
-let lang2_id
-let lang3_id
-let word_id
-let word2_id
-let word3_id
-let list_id
-let list2_id
-let list_word_id
-let list2_word_id
+let token, lang_id, lang2_id, lang3_id, word_id, word2_id, word3_id, list_id, list2_id
 
 const newUser = {
     user_name: "test name",
@@ -26,10 +13,9 @@ beforeAll(done => {
     done()
 })
 
-
 describe("Test application ", () => {
     test("Not Found route", async() => {
-        const res = await request(app).get("/wrong-endpoint")
+        const res = await request(app).get("/api/wrong-endpoint")
         expect(res.statusCode).toEqual(404)
     })
 
@@ -323,9 +309,9 @@ describe("Test application ", () => {
 
     })
 
+
 })
 afterAll(done => {
-    console.log(ress)
     jest.useFakeTimers();
     done()
 })

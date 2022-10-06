@@ -68,17 +68,26 @@ exports.getById = (req, res, next) => {
                     message: "Record not found."
                 })
             }
+            let name = result[0].list_name
+            let lang1 = result[0].lang1_id
+            let lang2 = result[0].lang2_id
             WordslistWords
                 .findByListId(id)
                 .then(([result]) => {
                     if (result.length < 1) {
                         return res.status(404).json({
                             success: 0,
+                            list_name: name,
+                            lang1_id: lang1,
+                            lang2_id: lang2,
                             message: "List is empty."
                         })
                     } else {
                         return res.status(200).json({
                             success: 1,
+                            list_name: name,
+                            lang1_id: lang1,
+                            lang2_id: lang2,
                             data: result
                         })
                     }

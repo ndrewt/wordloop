@@ -136,7 +136,6 @@ exports.deleteById = (req, res, next) => {
                 message: "Server-side error."
             })
         })
-
 }
 
 exports.deleteByName = (req, res, next) => {

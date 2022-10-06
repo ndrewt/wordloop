@@ -20,7 +20,7 @@ module.exports = class User {
     }
 
     static getUserById() {
-        db.execute('SELECT user_id, user_name, user_login, user_password FROM users where user_id = ?'), [this.user_id]
+        db.execute('SELECT user_id, user_name, user_login, user_password FROM users where user_id = ?', [this.user_id])
     }
 
     static updateUser(user_name, user_login, user_password, user_id) {

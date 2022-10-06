@@ -6,6 +6,7 @@ const LangRouter = require('./routes/languages')
 const WordsRouter = require('./routes/words')
 const ListsRouter = require('./routes/words-lists')
 const ListWordsRouter = require('./routes/words-lists-words')
+const TgRouter = require('./routes/telegram')
     //swagger
 const swaggerJsDoc = require('swagger-jsdoc')
 const swaggerUi = require('swagger-ui-express')
@@ -47,6 +48,8 @@ app.use(express.json())
 
 app.use('/api/users', AuthRouter)
 
+app.use('/api/tg-data', TgRouter)
+
 app.use('/api/languages', LangRouter)
 
 app.use('/api/words', WordsRouter)
@@ -54,6 +57,7 @@ app.use('/api/words', WordsRouter)
 app.use('/api/words-lists', ListsRouter)
 
 app.use('/api/words-lists-words', ListWordsRouter)
+
 
 app.use('/api', (req, res, next) => {
     res.status(404).json({
