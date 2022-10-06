@@ -10,7 +10,7 @@ With our API, you can add languages, words, and word lists. You can edit and edi
 
 Thanks to cascade deletion, for example, if you delete a language and create words on its ID, these words will be removed from the database.
 
-To access all paths (except /api/signup and /api/login) user need jwt token, which is signed when you sign into your account.
+To access all paths (except /api/users/signup and /api/users/login) user need jwt token, which is signed when you sign into your account.
 
 The Wordloop API uses as a backend Node.js and as a database -Mysql.
 
