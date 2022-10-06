@@ -15,7 +15,7 @@ To access all paths (except /api/signup and /api/login) user need jwt token, whi
 The Wordloop API uses as a backend Node.js and as a database -Mysql.
 
 ## Install software before inisilization
-You need to [Docker][1] on your pc or server.
+You need to install [Docker][1] on your pc or server.
 
 ## Creating docker container
 
