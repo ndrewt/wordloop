@@ -1,8 +1,8 @@
+# Wordloop API
 <p align="center">
   <img src="https://media.giphy.com/media/NpuT7NSTqosT9asiLi/giphy.gif" alt="animated" />
 </p>
 
-# Wordloop API
 ## About Wordloop API
 Wordloop API created as an alternative to paper dictionaries.
 
