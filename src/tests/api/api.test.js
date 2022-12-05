@@ -2,7 +2,14 @@ const request = require('supertest')
 const app = require('../../app')
 
 let token, lang_id, lang2_id, lang3_id, word_id, word2_id, word3_id, list_id, list2_id
-
+let users = []
+for (let i = 0; i <= 1000; i++) {
+    users.push({
+        user_name: `User name#${i}`,
+        user_login: "login#${i",
+        user_password: "testpass_wordloop"
+    })
+}
 const newUser = {
     user_name: "test name",
     user_login: "test_login",
@@ -13,9 +20,10 @@ beforeAll(done => {
     done()
 })
 
+
 describe("Test application ", () => {
     test("Not Found route", async() => {
-        const res = await request(app).get("/api/wrong-endpoint")
+        const res = await request(app).get("/wrong-endpoint")
         expect(res.statusCode).toEqual(404)
     })
 
@@ -308,7 +316,24 @@ describe("Test application ", () => {
         })
 
     })
-
+    describe("Users stress test", () => {
+        test("Successfull creation 1000 users", async() => {
+            let res = async() => {
+                    for (let i = 0; i < users.length; i++) {
+                        let req = await request(app)
+                            .post("/api/users/signup/")
+                            .set('Authorization', `Bearer ${token}`)
+                            .send(users[0])
+                        console.log(req)
+                        if (!users[i + 1]) {
+                            return req
+                        }
+                    }
+                }
+                // console.log(res)
+                // expect(res.statusCode).toEqual(200)
+        })
+    })
 
 })
 afterAll(done => {

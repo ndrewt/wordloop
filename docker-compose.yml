@@ -8,10 +8,10 @@ services:
     ports:
       - "3306:3306"
     environment:
-      - MYSQL_ROOT_PASSWORD=
+      - MYSQL_ROOT_PASSWORD=wordloop_2022_4
       - MYSQL_DATABASE=wordloop_data
     volumes:
-      - ./src/db/migrations/V2022-28-9-18.56.sql:/docker-entrypoint-initdb.d/migration.sql
+      - ./src/db/migrations/V2022-13-04-18.56.sql:/docker-entrypoint-initdb.d/migration.sql
     command: --default-authentication-plugin=mysql_native_password
       
     networks:

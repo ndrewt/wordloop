@@ -112,8 +112,8 @@ ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE IF NOT EXISTS tg_data (
   user_id INT NOT NULL,
   telegram_id INT NOT NULL ,
-  token VARCHAR(300) NOT NULL
-   )
+  token VARCHAR(300) NOT NULL,
+  INDEX telegram_id (telegram_id ASC) VISIBLE)
 ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 SET SQL_MODE=@OLD_SQL_MODE;
